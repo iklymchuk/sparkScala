@@ -1,11 +1,11 @@
-package com.klymchuk.spark
+package com.klymchuk
 
-import org.apache.spark._
-import org.apache.spark.SparkContext._
-import org.apache.log4j._
-import scala.io.Source
 import java.nio.charset.CodingErrorAction
-import scala.io.Codec
+
+import org.apache.log4j._
+import org.apache.spark._
+
+import scala.io.{Codec, Source}
 import scala.math.sqrt
 
 /**
@@ -29,7 +29,7 @@ object SBT {
     // Create a Map of Ints to Strings, and populate it from u.item.
     var movieNames:Map[Int, String] = Map()
 
-    val lines = Source.fromFile("movies.dat").getLines()
+    val lines = Source.fromFile("inputData/1M/movies.dat").getLines()
     for (line <- lines) {
       var fields = line.split("::")
       if (fields.length > 1) {
@@ -109,7 +109,7 @@ object SBT {
     println("\nLoading movie names...")
     val nameDict = loadMovieNames()
 
-    val data = sc.textFile("s3n://sundog-spark/ml-1m/ratings.dat")
+    val data = sc.textFile("inputData/1M/ratings.dat")
 
     // Map ratings to key / value pairs: user ID => movie ID, rating
     val ratings = data.map(l => l.split("::")).map(l => (l(0).toInt, (l(1).toInt, l(2).toDouble)))

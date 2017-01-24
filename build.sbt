@@ -2,7 +2,7 @@ name := "SBT"
 
 version := "1.0"
 
-organization := "com.klymchuk.spark"
+organization := "com.klymchuk"
 
 scalaVersion := "2.11.8"
 
